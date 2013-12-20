@@ -1,7 +1,7 @@
 var assert = require('assert'),
     bitcoin = require('../'),
     config = require('./config'),
-    commands = require('../lib/commands');
+    commands = require('../lib/btc-commands');
     
     
 var getHelpCommands = function(client, cb) {
