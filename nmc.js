@@ -10,36 +10,11 @@ var namecoind = require('./lib/index'),
 
 Object.extend();
 
-function nmc(config) {
-  if (!config) {
-    fs.readFileSync('settings.json', function(err, data) {
-      if (err) {
-        fs.readFileSync(process.env.HOME + '/.namecoin/namecoin.conf', function(err, data) {
-          if (err) {
-            if(debug){
-              console.log("Error when reading system config file, assuming no username/password.");
-            }
+function nmc(c) {
 
-            config = {
-              host: 'localhost',
-              port: 8334,
-              user: '',
-              pass: ''
-            };
-
-          } else {
-            config = JSON.parse(data);
-          }
-        });
-      } else {
-        config = JSON.parse(data);
-      }
-    });
-  }
+  this.client = c;
 
   var that = this;
-
-  this.client = new namecoind.Client(config);
 
   this.blockCount = function() {
     return new Promise(function(resolve, reject) {
@@ -98,7 +73,7 @@ function nmc(config) {
             reject(err);
           else
             resolve(value);
-      });
+        });
     });
   };
 
@@ -154,6 +129,62 @@ function nmc(config) {
     });
 
   };
+
+  return this;
 }
 
-module.exports = new nmc();
+//TODO: refactor this spaghetti shit.
+exports.init = function(config) {
+
+  return new Promise(function(resolve) {
+
+
+    if (config) {
+      finish(config);
+    } else try {
+      fs.readFile('settings.json', 'utf8', function(err, data) {
+        if (err) {
+          throw err
+        } else {
+          finish(data);
+        }
+      });
+    } catch (e) {
+      try {
+        fs.readFile(process.env.HOME + '/.namecoin/namecoin.conf',
+          function(err, data) {
+            if (err) {
+              throw err
+            } else {
+              finish(data);
+            }
+          });
+      } catch (e) {
+        if (debug) {
+          console.log("Error when reading system config file," +
+            " using default config with no username/password.", e);
+        }
+        config = {
+          host: 'localhost',
+          port: 8334,
+          user: '',
+          pass: ''
+        };
+        finish(data);
+      }
+    }
+
+    function finish(conf) {
+      if (!conf.isObject()) {
+        conf = JSON.parse(conf);
+      }
+
+      resolve(
+        new nmc(
+          new namecoind.Client(conf)
+        )
+      );
+    }
+
+  });
+};

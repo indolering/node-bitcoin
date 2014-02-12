@@ -1,4 +1,8 @@
 node_modules/
 test/config.js
+.gitmodules
 .project
-
+.idea
+.iml
+config.js
+settings.json

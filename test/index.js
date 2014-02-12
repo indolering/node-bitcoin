@@ -1,5 +1,6 @@
 var assert = require('assert'),
     clone = require('clone'),
+//  clone = require('/usr/local/lib/node_modules/clone'),
     bitcoin = require('../'),
     config = require('./config');
 
