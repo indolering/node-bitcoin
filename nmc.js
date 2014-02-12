@@ -151,12 +151,20 @@ exports.init = function(config) {
       });
     } catch (e) {
       try {
-        fs.readFile(process.env.HOME + '/.namecoin/namecoin.conf',
+        fs.readFile(process.env.HOME + '/.namecoin/namecoin.conf', 'utf-8',
           function(err, data) {
             if (err) {
               throw err
             } else {
-              finish(data);
+              var conf = data.split(/\f|\n|\r/);
+              var confJSON = {};
+
+              conf.forEach(function(line) {
+                line = line.split;
+                confJSON[line[0]] = line[1];
+              });
+
+              finish(confJSON);
             }
           });
       } catch (e) {
