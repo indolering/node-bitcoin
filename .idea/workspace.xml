@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e26c288-cf31-4f55-b111-027a4813bb99" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nmc.js" afterPath="$PROJECT_DIR$/nmc.js" />
     </list>
     <ignored path="node-namecoin.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -115,19 +114,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nmc.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="nmc.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nmc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="208" column="4" selection-start="4921" selection-end="4921" vertical-scroll-proportion="-14.0" vertical-offset="3380" max-vertical-offset="4086">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="6" selection-start="56" selection-end="56" vertical-scroll-proportion="0.115384616" vertical-offset="0" max-vertical-offset="624">
+            <state line="206" column="5" selection-start="4900" selection-end="4900" vertical-scroll-proportion="2.173913" vertical-offset="2408" max-vertical-offset="4104">
               <folding />
             </state>
           </provider>
@@ -169,8 +159,8 @@
         <option value="$PROJECT_DIR$/dump.js" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/SETUP.md" />
-        <option value="$PROJECT_DIR$/nmc.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/nmc.js" />
       </list>
     </option>
   </component>
@@ -463,12 +453,12 @@
       <workItem from="1392010541738" duration="2805000" />
       <workItem from="1392066307482" duration="11000" />
       <workItem from="1392087109284" duration="6235000" />
-      <workItem from="1392245012780" duration="4447000" />
+      <workItem from="1392245012780" duration="4602000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190748000" />
+    <option name="totallyTimeSpent" value="190903000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1366" height="742" extended-state="6" />
@@ -525,7 +515,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/nmc.js</url>
-          <line>197</line>
+          <line>196</line>
           <option name="timeStamp" value="416" />
         </line-breakpoint>
       </breakpoints>
@@ -831,16 +821,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nmc.js">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="208" column="4" selection-start="4921" selection-end="4921" vertical-scroll-proportion="-14.0" vertical-offset="3380" max-vertical-offset="4086">
+        <state line="4" column="6" selection-start="56" selection-end="56" vertical-scroll-proportion="0.115384616" vertical-offset="0" max-vertical-offset="624">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/nmc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="6" selection-start="56" selection-end="56" vertical-scroll-proportion="0.115384616" vertical-offset="0" max-vertical-offset="624">
+        <state line="206" column="5" selection-start="4900" selection-end="4900" vertical-scroll-proportion="2.173913" vertical-offset="2408" max-vertical-offset="4104">
           <folding />
         </state>
       </provider>

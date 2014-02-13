@@ -144,13 +144,12 @@ exports.init = function(config) {
     } else {
       try {
         fs.readFile('settings.json', 'utf8', function(err, data) {
-          if (err) {
-            throw err;
+          if (!err) {
+            finish(data);
+
           } else {
             finish(data);
-          }
-        });
-      } catch (e) {
+
         try {
           fs.readFile(process.env.HOME + '/.namecoin/namecoin.conf', 'utf-8',
             function(err, data) {
@@ -202,6 +201,8 @@ exports.init = function(config) {
           };
           finish(config);
         }
+          }
+        });
       }
     }
 
