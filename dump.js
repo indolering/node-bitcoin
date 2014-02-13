@@ -20,6 +20,17 @@ var Promise = require('es6-promise').Promise;
 var lastBlockCount = null;
 var blockCount = null;
 var nmc;
+var lockFile = require('lockfile');
+var winston = require('winston');
+winston.add(winston.transports.File, { filename: 'dumpjs.log' });
+
+
+// opts is optional, and defaults to {}
+lockFile.lock('dump.lock', {stale:3600000}, function (er) {
+  if (er) {
+    winston.warn('Could not open lockfile!' + new Date().toISOString());
+  } else {
+
 var namecoind = require('./nmc').init().then(function(nmcd){
 
 nmc = nmcd;
@@ -48,6 +59,9 @@ nmc.blockCount().then(function(value) {
 
 });
 });
+  }
+});
+
 
 function expireBlock(expires) {
   return blockCount + expires;
@@ -139,7 +153,10 @@ function nameDump(regex, age, start, max) {
           if (namesTotal > scraped) {
             nameDump();
           } else {
-            console.log("finished.")
+            console.log("finished.");
+            lockFile.unlock('some-file.lock', function (er) {
+              console.log(er);
+            });
           }
         }
       });
