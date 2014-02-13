@@ -156,15 +156,36 @@ exports.init = function(config) {
             if (err) {
               throw err
             } else {
-              var conf = data.split(/\f|\n|\r/);
-              var confJSON = {};
+              var tempConf = data.split(/\f|\n|\r/);
+              var tempJson = {};
 
-              conf.forEach(function(line) {
+              tempConf.forEach(function(line) {
                 line = line.split;
-                confJSON[line[0]] = line[1];
+                tempJson[line[0]] = line[1];
               });
 
-              finish(confJSON);
+              var config = {
+                host: 'localhost',
+                port: 8334,
+                user: '',
+                pass: ''
+              };
+
+              if (tempJson.host) {
+                config.host = tempJson.host;
+              }
+              if (tempJson.rpcport) {
+                config.port = tempJson.rpcport;
+              }
+              if (tempJson.rpcuser) {
+                config.user = tempJson.rpcuser;
+              }
+              if (tempJson.rpcpassword) {
+                config.pass = tempJson.rpcpassword;
+              }
+              
+
+              finish(tempJson);
             }
           });
       } catch (e) {
@@ -178,7 +199,7 @@ exports.init = function(config) {
           user: '',
           pass: ''
         };
-        finish(data);
+        finish(config);
       }
     }
 
