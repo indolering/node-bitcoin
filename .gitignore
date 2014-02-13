@@ -2,8 +2,8 @@ node_modules/
 test/config.js
 .gitmodules
 .project
-.idea
+.idea/
 .iml
 config.js
 settings.json
-*.iml
+*.
