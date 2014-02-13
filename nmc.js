@@ -141,67 +141,70 @@ exports.init = function(config) {
 
     if (config) {
       finish(config);
-    } else try {
-      fs.readFile('settings.json', 'utf8', function(err, data) {
-        if (err) {
-          throw err
-        } else {
-          finish(data);
-        }
-      });
-    } catch (e) {
+    } else {
       try {
-        fs.readFile(process.env.HOME + '/.namecoin/namecoin.conf', 'utf-8',
-          function(err, data) {
-            if (err) {
-              throw err
-            } else {
-              var tempConf = data.split(/\f|\n|\r/);
-              var tempJson = {};
-
-              tempConf.forEach(function(line) {
-                line = line.split;
-                tempJson[line[0]] = line[1];
-              });
-
-              var config = {
-                host: 'localhost',
-                port: 8334,
-                user: '',
-                pass: ''
-              };
-
-              if (tempJson.host) {
-                config.host = tempJson.host;
-              }
-              if (tempJson.rpcport) {
-                config.port = tempJson.rpcport;
-              }
-              if (tempJson.rpcuser) {
-                config.user = tempJson.rpcuser;
-              }
-              if (tempJson.rpcpassword) {
-                config.pass = tempJson.rpcpassword;
-              }
-              
-
-              finish(tempJson);
-            }
-          });
+        fs.readFile('settings.json', 'utf8', function(err, data) {
+          if (err) {
+            throw err;
+          } else {
+            finish(data);
+          }
+        });
       } catch (e) {
-        if (debug) {
-          console.log("Error when reading system config file," +
-            " using default config with no username/password.", e);
+        try {
+          fs.readFile(process.env.HOME + '/.namecoin/namecoin.conf', 'utf-8',
+            function(err, data) {
+              if (err) {
+                throw err
+              } else {
+                var tempConf = data.split(/\f|\n|\r/);
+                var tempJson = {};
+
+                tempConf.forEach(function(line) {
+                  line = line.split;
+                  tempJson[line[0]] = line[1];
+                });
+
+                var config = {
+                  host: 'localhost',
+                  port: 8334,
+                  user: '',
+                  pass: ''
+                };
+
+                if (tempJson.host) {
+                  config.host = tempJson.host;
+                }
+                if (tempJson.rpcport) {
+                  config.port = tempJson.rpcport;
+                }
+                if (tempJson.rpcuser) {
+                  config.user = tempJson.rpcuser;
+                }
+                if (tempJson.rpcpassword) {
+                  config.pass = tempJson.rpcpassword;
+                }
+
+
+                finish(tempJson);
+              }
+            });
+        } catch (e) {
+          if (debug) {
+            console.log("Error when reading system config file," +
+              " using default config with no username/password.", e);
+          }
+          config = {
+            host: 'localhost',
+            port: 8334,
+            user: '',
+            pass: ''
+          };
+          finish(config);
         }
-        config = {
-          host: 'localhost',
-          port: 8334,
-          user: '',
-          pass: ''
-        };
-        finish(config);
       }
     }
+
 
     function finish(conf) {
       if (!conf.isObject()) {
