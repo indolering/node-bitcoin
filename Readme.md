@@ -36,17 +36,23 @@ local CouchDB instance.  It should be rewritten in Java or Python but, until
 then, use it at your own peril.
 
 Dump.js assumes that you have a local CouchDB install which is world writable
-and a DB called 'bit'.  This is currently hardcoded into dump.js.  You should
-(at the very least) restrict access to CouchDB to the local network (this should
-not interfere with outgoing replication jobs).  It should be trivial to setup
-passwords, etc, for the DB.
+and a DB called 'bit'.  This is currently hardcoded into dump.js but it should
+be trivial to setup passwords, etc, for the DB. You should (at the very least)
+bind CouchDB to localhost or 127.0.0.1.
+
+Even if after you setup passwords, it's unwise to pair your CouchDB front-end
+server and your Namecoind instance on the same server. Relax and use CouchDB's
+excellent continuous replication feature to sync with your frontend servers.
+Binding to localhost will not interfere with outgoing replication jobs.
 
 ## Usage notes
 
-`nmc.js` first checks for a passed config object, then it checks for a local
-`settings.json` file and it finally falls back to __searching for the config file
-at `~/.namecoin/namecoin.conf`.__ This should "just work" on most Unix systems. *
+Connecting to Namecoind should "just work" on most Unix systems.  `nmc.js` first
+checks for a passed config object, then it checks for a local `settings.json`
+file and it finally falls back to __searching for the config file at
+`~/.namecoin/namecoin.conf`.__
 
+(Technically, it looks for the `process.env.HOME + /.namecoin/namecoin.conf`.)
 ### Manually specify namecoind settings:
 #### GUI
 1. Make a copy of `settings-example.json` and rename it to `settings.json`
@@ -74,8 +80,6 @@ var client = new namecoind.Client({
   pass: 'password'
 });
 ```
-* It technically looks for the `/.namecoin/namecoin.conf` file in whatever
-directory is listed in the `process.env.HOME` variable.
 
 ### Get balance across all accounts with minimum confirmations of 6
 
