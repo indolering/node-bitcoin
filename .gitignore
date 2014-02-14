@@ -6,3 +6,5 @@ test/config.js
 .iml
 config.js
 settings.json
+dumpjs.log
+dump.lock

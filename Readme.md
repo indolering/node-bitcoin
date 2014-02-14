@@ -29,17 +29,7 @@ It is in fairly good shape.
 ## dump.js
 This is a monsterous, hacky script which scrapes the namecoin blockchain into a
 local CouchDB instance.  It should be rewritten in Java or Python but, until
-then, use it at your own peril.
-
-Dump.js assumes that you have a local CouchDB install which is world writable
-and a DB called 'bit'.  This is currently hardcoded into dump.js but it should
-be trivial to setup passwords, etc, for the DB. You should (at the very least)
-bind CouchDB to localhost or 127.0.0.1.
-
-Even if after you setup passwords, it's unwise to pair your CouchDB front-end
-server and your Namecoind instance on the same server. Relax and use CouchDB's
-excellent continuous replication feature to sync with your frontend servers.
-Binding to localhost will not interfere with outgoing replication jobs.
+then, use it at your own peril (and see the usage notes below).
 
 ## Usage notes
 Connecting to Namecoind should "just work" on most Unix systems.  `nmc.js` first
@@ -48,6 +38,7 @@ file and it finally falls back to __searching for the config file at
 `~/.namecoin/namecoin.conf`.__
 
 (Technically, it looks for the `process.env.HOME + /.namecoin/namecoin.conf`.)
+
 ### Manually specify namecoind settings
 #### GUI
 1. Make a copy of `settings-example.json` and rename it to `settings.json`
@@ -110,7 +101,7 @@ client.cmd(batch, function(err, address) {
 });
 ```
 
-## SSL for namecoin-node
+### SSL for namecoin-node
 I haven't tested it but I also didn't change any code that depends on it.
 See [Enabling SSL on original client](https://en.bitcoin.it/wiki/Enabling_SSL_on_original_client_daemon).
 
@@ -135,3 +126,25 @@ var client = new namecoind.Client({
   sslCa: fs.readFileSync(__dirname + '/myca.cert')
 });
 ```
+### dump.js Setup
+Dump.js assumes that you have a local CouchDB install which is world writable
+and a DB called 'bit'.  This is currently hardcoded into dump.js but it should
+be trivial to setup passwords, etc, for the DB. You should (at the very least)
+bind CouchDB to localhost or 127.0.0.1.
+
+Even if after you setup passwords, it's unwise to pair your CouchDB front-end
+server and your Namecoind instance on the same server. Relax and use CouchDB's
+excellent continuous replication feature to sync with your frontend servers.
+Binding to localhost will not interfere with outgoing replication jobs.
+
+If you run into trouble, try passing --debug when you call dump.js and read the
+logs in dumpjs.log;
+
+Make sure any cronjobs CD into the node-namecoin directory, here is a sample job
+which runs dump every 10 minutes:
+*/10    *       *       *       *       cd /path/to/node-namecoin/; node dump.js
+
+10 minutes is probably overkill but note that the lockfile's stale setting is
+set at 10 minutes.  Passing `--debug` will set the stale setting to 0.
+
+
