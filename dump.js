@@ -22,15 +22,19 @@ var blockCount = null;
 var nmc;
 var lockFile = require('lockfile');
 var winston = require('winston');
-winston.add(winston.transports.File, { filename: 'dumpjs.log' });
-
+winston.add(winston.transports.File, {
+  filename: 'dumpjs.log',
+  handleExceptions: true
+});
 
 // opts is optional, and defaults to {}
 lockFile.lock('dump.lock', {stale:3600000}, function (er) {
   if (er) {
     winston.warn('Could not open lockfile!' + new Date().toISOString());
   } else {
-
+    if (DEBUG) {
+      winston.info("lock file set", {"user":process.getuid()});
+    }
 var namecoind = require('./nmc').init().then(function(nmcd){
 
 nmc = nmcd;
@@ -153,7 +157,7 @@ function nameDump(regex, age, start, max) {
           if (namesTotal > scraped) {
             nameDump();
           } else {
-            console.log("finished.");
+            winston.info("finished.", Date.ISO8601_DATETIME);
             lockFile.unlock('some-file.lock', function (er) {
               console.log(er);
             });
@@ -217,9 +221,12 @@ function update(name) {
                 if (error) {
                   console.log(name + " failed to update",
                     JSON.stringify(error));
+                  winston.warn(name + " failed to update",error);
+
                   reject(error);
                 } else {
                   console.log(name + " updated");
+                  winston.info(name + " updated");
                   resolve(response);
                 }
               });
