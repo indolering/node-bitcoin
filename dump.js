@@ -23,7 +23,7 @@ winston.add(winston.transports.File, {
 var lockFile = require('lockfile');
 var lockFreshness = {stale: 600000};
 if (DEBUG) {
-  lockFreshness = 0;
+  lockFreshness.stale = 10;
 }
 
 var _ = require('underscore'),
