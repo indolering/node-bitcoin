@@ -1,11 +1,9 @@
 #About
-
 This repo consists of 3.5 different projects which all need to be abstracted
 from each other but haven't been because I haven't had time.  However, they are
 all useful in their own right.
 
 ## node-namecoin
-
 Node-namecoin is based on node-bitcoin, a simple wrapper for the Bitcoin
 client's JSON-RPC API using `jsonrpc.js`. Node-namecoin simply adds a few
 Namecoin-specific calls and disables a few Bitcoin-specific calls. Node-Namecoin
@@ -23,14 +21,12 @@ because node-bitcoin will require some refactoring before it can become a base
 library for other alt-coins.
 
 ## nmc.js
-
 nmc.js adds syntactic sugar to node-namecoin: adding promises, providing sane
 defaults, converting multiple options into objects, building query strings, etc.
 
 It is in fairly good shape.
 
 ## dump.js
-
 This is a monsterous, hacky script which scrapes the namecoin blockchain into a
 local CouchDB instance.  It should be rewritten in Java or Python but, until
 then, use it at your own peril.
@@ -46,14 +42,13 @@ excellent continuous replication feature to sync with your frontend servers.
 Binding to localhost will not interfere with outgoing replication jobs.
 
 ## Usage notes
-
 Connecting to Namecoind should "just work" on most Unix systems.  `nmc.js` first
 checks for a passed config object, then it checks for a local `settings.json`
 file and it finally falls back to __searching for the config file at
 `~/.namecoin/namecoin.conf`.__
 
 (Technically, it looks for the `process.env.HOME + /.namecoin/namecoin.conf`.)
-### Manually specify namecoind settings:
+### Manually specify namecoind settings
 #### GUI
 1. Make a copy of `settings-example.json` and rename it to `settings.json`
 2. Fill in config information in `settings.json`
@@ -89,6 +84,7 @@ client.getBalance('*', 6, function(err, balance) {
   console.log('Balance:', balance);
 });
 ```
+
 ### Getting the balance directly using `cmd`
 
 ```js
@@ -114,15 +110,15 @@ client.cmd(batch, function(err, address) {
 });
 ```
 
-## SSL for Namecoin-Node
+## SSL for namecoin-node
 I haven't tested it but I also didn't change any code that depends on it.
 See [Enabling SSL on original client](https://en.bitcoin.it/wiki/Enabling_SSL_on_original_client_daemon).
 
 If you're using this to connect to namecoind across a network it is highly
-recommended to enable `ssl`, otherwise an attacker may intercept your RPC credentials
-resulting in theft of your namecoind.
+recommended to enable `ssl`, otherwise an attacker may intercept your RPC
+credentials resulting in theft of your namecoins.
 
-When enabling `ssl` by setting the configuration option to `true`, the `sslStrict`
+When enabling `ssl` by setting the config option to `true`, the `sslStrict`
 option (verifies the server certificate) will also be enabled by default. It is 
 highly recommended to specify the `sslCa` as well, even if your namecoind has
 a certificate signed by an actual CA, to ensure you are connecting
