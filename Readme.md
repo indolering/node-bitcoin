@@ -49,7 +49,7 @@ file and it finally falls back to __searching for the config file at
 ```js
 echo '{
    "host": "localhost",
-   "port": 8334,
+   "port": 8336,
    "user": "REPLACE ME",
    "pass": "REPLACE ME"
  }
@@ -61,7 +61,7 @@ echo '{
 ```js
 var client = new namecoind.Client({
   host: 'localhost',
-  port: 8334,
+  port: 8336,
   user: 'username',
   pass: 'password'
 });
